@@ -1,38 +1,164 @@
-.App {
-  text-align: center;
+/* Header */
+#header{
+  width:100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#selectCompany{
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.results{
+  position: absolute;
+  height: 100px;
+  width: 300px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.searchResult{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  height: 50px;
+  border: 1px solid black;
+  padding-left: 5px;
+  background-color: rgb(207, 238, 238);
 }
 
-.App-link {
-  color: #61dafb;
+#body{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 450px 4fr;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Input */
+.input{
+  width: 350px;
+  height: 900px;
+  display: grid;
+  grid-template-columns: 300px 100px;
+}
+
+#convert{
+  width:100%;
+  height: 100px;
+  background-color: rgb(157, 235, 235);
+}
+
+#clear{
+  width:100%;
+  height: 100px;
+  background-color: rgb(157, 235, 235);
+}
+
+#saveToDb{
+  width:100%;
+  height: 100px;
+  background-color: rgb(157, 235, 235);
+}
+
+#saveCountry{
+  width:100%;
+  height: 100px;
+  background-color: rgb(157, 235, 235);
+}
+
+
+/* Output */
+#dataHeader{
+  height:50px;
+  background-color: rgb(152, 183, 219);
+}
+
+/* #dataSection */
+
+/* Info */
+#info{
+  display: grid;
+  grid-template-columns:repeat(6,1fr);
+}
+
+.manualUpdate{
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  
+}
+
+.headerBar{
+  margin: 0px;
+  padding: 0px;
+  padding-top: 13px;
+}
+
+.quarterHeading{
+  padding: 0px;
+  margin: 0px;
+}
+
+.yearHeading{
+  padding: 0px;
+  margin: 0px;
+}
+
+.manualUpdate{
+  margin-left: 80%;
+  background-color: rgb(226, 138, 167);
+}
+
+#dataSection{
+  display: grid;
+  grid-template-columns: 290px 290px 290px 290px 110px 165px;
+  height: 800px;
+}
+
+#yearlyData{
+  display:grid;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+#earnings{
+  background-color: rgb(223, 235, 235);
+}
+
+.quarterInfo{
+  display: grid;
+  grid-template-columns: 35px 60px 70px 1fr 1fr;
+}
+
+.yearInfo{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.qeText{
+  padding: 0px;
+  margin: 0px;
+  font-size: 12px;
+  width: 90%;
+}
+
+#fcf{
+  background-color: rgb(199, 211, 211);
+}
+
+#qDebt{
+  background-color: rgb(160, 187, 204);
+}
+
+#ebit{
+  background-color: rgb(178, 185, 189);
+}
+
+#lDebt{
+  background-color: rgb(178, 185, 189);
+  width: 110px;
+}
+
+#insider{
+
+}
+
+.insiderInfo{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
