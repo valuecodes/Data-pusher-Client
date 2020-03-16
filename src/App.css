@@ -107,7 +107,7 @@
 
 #dataSection{
   display: grid;
-  grid-template-columns: 290px 290px 290px 290px 110px 165px;
+  grid-template-columns: 1fr 165px;
   height: 800px;
 }
 
@@ -162,3 +162,35 @@
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
+
+#dataHeaderBar{
+  display: grid;
+  grid-template-columns: 350px 0.1px repeat(12,1fr);
+}
+
+#dataHeaderBar p{
+  margin: 0px;
+  padding: 0px;
+}
+
+#incomeState{
+  display: grid;
+  grid-template-columns: 350px 1fr;
+}
+
+#stateValue{
+  display: grid;
+  grid-template-columns: repeat(12,1fr);
+}
+
+#stateValue p{
+  padding: 0px;
+  margin: 0px;
+}
+
+
+
+/* #incomeStateValues{
+  display: grid;
+  grid-template-columns: repeat(13,1fr);
+} */

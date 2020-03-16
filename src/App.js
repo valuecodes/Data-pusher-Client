@@ -9,16 +9,20 @@ export class App extends Component {
     super();
     this.state = {
         active:[],
-        earningsData:null,
-        fcfData:[[0.0, 0.0, 0.0, 1, 2019, 12, 1, 4]],
-        qDebtData:[[0, 0, 0.0, 1, 2019, 12, 1, 4]],
-        sharesData:[[0, 1, 2019]],
-        lDebtData:[[0, 1, 2019, 12, 1, 4]],
-        ebitData:null,
-        epsData:[[0.0, 2019, 12, 4, 1]],
-        marginData:[[0.0, 0.0, 0.0, 1, 2019, 12, 1, 4]],
+        // earningsData:null,
+        // fcfData:[[0.0, 0.0, 0.0, 1, 2019, 12, 1, 4]],
+        // qDebtData:[[0, 0, 0.0, 1, 2019, 12, 1, 4]],
+        // sharesData:[[0, 1, 2019]],
+        // lDebtData:[[0, 1, 2019, 12, 1, 4]],
+        // ebitData:null,
+        // epsData:[[0.0, 2019, 12, 4, 1]],
+        // marginData:[[0.0, 0.0, 0.0, 1, 2019, 12, 1, 4]],
         insiderData:[['null','null','null',0,0,0,2020,1,1,1,0]],
-        weekData:null        
+        weekData:null,
+        mIncome:[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2019,12,31,4]],
+        mBalance:[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+        mCashFlow:[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+        mRatios:[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
     };
   }
 
@@ -35,18 +39,6 @@ export class App extends Component {
     for(var i=0;i<dData.length;i++){
       dData[i].push(country);
     }
-
-    // const options = {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': "application/json;charset=UTF-8"
-    //   },
-    //   body: JSON.stringify(wData)
-    // }
-    // // Create ticker to database if not exist
-    // fetch('/saveWeeklyData', options)
-    //   .then(res => res.json())
-    //   .then(message => console.log(message));
       
     this.setState({active:selected,weekData:wData,divData:dData});
   }
@@ -56,10 +48,22 @@ export class App extends Component {
     let info=this.state.active;
     if(JSON.stringify(this.state.active) !== '[]'){
       switch(type) {
-        case 'earnings':
-          this.setState({earningsData:data});        
+        case 'morningStar':
+          this.setState({mIncome:data[0],mBalance:data[1],mCashFlow:data[2],mRatios:data[3]});        
           break;
-        case 'fcf':
+        case 'mIncome':
+          this.setState({mIncome:data});        
+          break;
+        case 'mBalance':
+          this.setState({mBalance:data});        
+          break;
+        case 'mCashFlow':
+          this.setState({mCashFlow:data});        
+          break;
+        case 'mRatios':
+          this.setState({mRatios:data});        
+          break;
+          case 'fcf':
           this.setState({fcfData:data});  
           break;
         case 'qdebt':
@@ -109,7 +113,9 @@ export class App extends Component {
           info.website=data[0][5];
           info.employees=data[0][6];
           info.description=data[0][7];
-          this.setState({active:info});  
+          info.countryName=data[0][8];
+          this.setState({active:info}); 
+          console.log(info);
           break;
         default:
           type=null;
@@ -122,8 +128,15 @@ export class App extends Component {
   saveToDb(){
     console.log('save');
     console.log(this.state);
-    let earnings=this.state.earningsData;
-    let fcf=this.state.fcfData;
+
+    let combined=[];
+
+    for(var i=0;i<this.state.mIncome.length;i++){
+      combined[i]=[...this.state.mIncome[i],...this.state.mBalance[i],...this.state.mCashFlow[i],...this.state.mRatios[i]]
+    }
+    console.log(combined);
+    this.state.combined=combined;
+
     const options = {
       method: 'POST',
       headers: {
@@ -131,7 +144,12 @@ export class App extends Component {
       },
       body: JSON.stringify(this.state)
     }
+
+
+    console.log(this.options);
+
     // Create ticker to database if not exist
+
     fetch('/saveTickerData', options)
       .then(res => res.json())
       .then(message => console.log(message));
@@ -150,7 +168,14 @@ export class App extends Component {
         </header>
         <div id='body'>
           <Input addTickerData={this.addTickerData.bind(this)} saveToDb={this.saveToDb.bind(this)} active={this.state.active.id}/>
-          <Output selectedCompany={this.state.active} epsData={this.state.epsData} fcfData={this.state.fcfData} qDebtData={this.state.qDebtData} sharesData={this.state.sharesData} lDebtData={this.state.lDebtData} marginData={this.state.marginData} insiderData={this.state.insiderData} manualUpdate={this.manualUpdate.bind(this)}/>
+          <Output 
+          selectedCompany={this.state.active}
+          mIncome={this.state.mIncome}
+          mBalance={this.state.mBalance}
+          mCashFlow={this.state.mCashFlow}
+          mRatios={this.state.mRatios}
+          insiderData={this.state.insiderData} 
+          />
         </div> 
       </div>
     )
@@ -162,6 +187,7 @@ export default App
 let addDivs=(data,divData)=>{
   let count=0;
   for(var a=0;a<divData.length;a++){
+    console.log(divData.length);
     if(divData[a][6]===data[count][2] && divData[a][7]===data[count][3]){
       divData[a][5]=data[count][0];
       count++;

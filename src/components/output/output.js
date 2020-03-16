@@ -1,13 +1,8 @@
 import React, { Component } from 'react'
 import { Info } from './info'
-import { Earnings } from './earnings/earnings';
-import { Fcf } from './fcf/fcf';
-import { Qdebt } from './qdebt/qdebt';
-import { Shares } from './shares/shares'
-import { LDebt } from './ldebt/ldebt'
-import { Ebit } from './ebit/ebit'
-import { BookValue } from './bookvalue/bookvalue'
+import { DataHeader } from './dataSection/header'
 import { Insider } from './insider/insider'
+import { Income } from './dataSection/income/income'
 
 export class Output extends Component {
     render() {
@@ -17,19 +12,24 @@ export class Output extends Component {
                     <Info selectedCompany={this.props.selectedCompany}/>
                 </div>
                 <div id='dataSection'>
-                    
-                    {/* <BookValue ebitData={this.props.ebitData} manualUpdate={this.props.manualUpdate}/> */}
+                    <div id='dataValues'>
+                        <DataHeader headerData={this.props.mIncome}/>
+                        <Income 
+                        incomeData={this.props.mIncome} 
+                        incomeHeaders={this.props.mIncome[0]} 
 
-                    <Earnings epsData={this.props.epsData}/>
-                    <Fcf fcfData={this.props.fcfData}/>
-                    <Qdebt qDebtData={this.props.qDebtData}/>
-                    <Ebit marginData={this.props.marginData}/>
-                    <div id='yearlyData'>
-                        <LDebt lDebtData={this.props.lDebtData}/>
-                        <Shares sharesData={this.props.sharesData}/>
+                        balanceData={this.props.mBalance} 
+                        balanceHeaders={this.props.mBalance[0]} 
+
+                        cashFlow={this.props.mCashFlow} 
+                        cashFlowHeaders={this.props.mCashFlow[0]}
+
+                        ratiosData={this.props.mRatios} 
+                        ratiosHeaders={this.props.mRatios[0]}     
+                        />
+                        
                     </div>
                     <Insider insiderData={this.props.insiderData}/>
-                    
                 </div>
             </div>
         )
